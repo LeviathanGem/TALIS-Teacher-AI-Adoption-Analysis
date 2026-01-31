@@ -2,10 +2,14 @@
 
 Analysis of OECD TALIS teacher survey data: AI adoption by country and predictors (readiness, attitudes, training). Beta–Binomial adoption rates, weighted logistic regression, MAP+Laplace fit. Three figures: adoption by country, digital readiness by country, scale correlations.
 
+**Context.** Before we started our venture we ran similar analysis on TALIS 2018. The 2018 cycle had little explicit AI-focused content; 2024 is much more relevant for LMS and AI-in-education work. I revisited the data with this newer wave, the results below inform what we build. If you’re curious about the product: [SmartPrep.AI](https://smartprep.ai/).
+
+I'm also keen on embedded LLM/ML projects. See my open-source graduate work **Odyssey** (voice + local LLM JITAI for hydration nudges, BLE sensing, Nicla Voice, TinyLlama): [project site](https://leviathangem.github.io/ECM202A_2025Fall_Project_15/) · [GitHub](https://github.com/LeviathanGem/ECM202A_2025Fall_Project_15).
+
+
 ---
 
-## Results (sample run, one extract through Turkey)
-
+## Results (sample run on atgintt4.csv)
 ### Output
 
 ```
@@ -33,7 +37,7 @@ Covariance eigenvalues: [2.34e-04, 2.58e-04, 3.16e-04, 1.0, 1.0, 1.0]
 
 ### Interpretation
 
-UAE (ARE) has the highest adoption (~73%); NZL, BRA, AUS, KOR, SAU cluster around 47–54%; SVN, ESP, TUR are lower (30–34%). Only **S_AI_ATT** and **S_TRAIN_SKILL** predict adoption in the logistic model, both *negative* — plausibly teachers who rate higher AI awareness and training gaps are those who haven’t yet adopted. The heatmap shows strong correlation among S_AI_ATT, S_TRAIN_NEED, S_TRAIN_SKILL; multicollinearity helps explain why S_TRAIN_NEED washes out. Readiness and adoption don’t align: e.g. NZL mid adoption, low readiness; BRA mid adoption, high readiness.
+UAE (ARE) has the highest adoption (~73%); NZL, BRA, AUS, KOR, SAU cluster around 47–54%; SVN, ESP, TUR are lower (30–34%). Only **S_AI_ATT** and **S_TRAIN_SKILL** predict adoption in the logistic model, both *negative*, plausibly teachers who rate higher AI awareness and training gaps are those who haven’t yet adopted. The heatmap shows strong correlation among S_AI_ATT, S_TRAIN_NEED, S_TRAIN_SKILL; multicollinearity helps explain why S_TRAIN_NEED washes out. Readiness and adoption don’t align: e.g. NZL mid adoption, low readiness; BRA mid adoption, high readiness.
 
 ### Figures
 
@@ -63,20 +67,11 @@ The extract used for the sample results above is one such file and contains coun
 - **Outcome:** `TT4G36` (AI use in last 12 months, 1=yes 2=no) or composite from `TT4G37*`.
 - **Predictors (z-scored):** S_READINESS (TT4G33*), S_DIGITAL_ATT (TT4G34*), S_AI_ATT (TT4G35*), S_TRAIN_NEED (TT4G24*), S_TRAIN_SKILL (TT4G25*).
 - **Weight:** `SCHWGTT` or first of `TCHWGT`, `ADJRT24`, `IDPOP`.
-- **Missing:** OECD codes (97, 98, 99, etc.) → NaN.
+- **Missing:** OECD codes (97, 98, 99, etc.) -> NaN.
 
 ---
 
 ## What the script does
 
 Loads CSV(s), cleans/re codes, builds scales, runs Beta–Binomial adoption rates by country, weighted GLM logistic regression, MAP+Laplace logistic with L2 prior, and produces the three figures above. Full GLM summary and MAP coefficient table are printed.
-
----
-
-## How to run
-
-```bash
-python portfolio.py
-```
-
 Dependencies: `numpy`, `pandas`, `matplotlib`, `statsmodels`.
