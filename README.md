@@ -39,7 +39,7 @@ UAE (ARE) has the highest adoption (~73%); NZL, BRA, AUS, KOR, SAU cluster aroun
 
 ![AI Adoption Rate by Country](figures/adoption.png)
 
-![Digital Readiness by Country]、(figures/readiness.png)
+![Digital Readiness by Country](figures/readiness.png)
 
 ![Correlation among Construct Scales](figures/correlation.png)
 
